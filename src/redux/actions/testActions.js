@@ -36,7 +36,7 @@ export const getDataAPI =()=> dispatch => {
         type:'LOADING',
         payload:true
       })
-      console.log("api call------")
+      console.log("API called")
       axios.get('https://mcuapi.herokuapp.com/api/v1/movies').then(res => {
       dispatch({
         type:'GET_ALL_DATA',
