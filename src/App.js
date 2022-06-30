@@ -2,20 +2,25 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import Navbar from './components/Navbar'
 import Content from './components/Content'
+import Loader from "./components/Loader";
+import NoData from "./components/NoData";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 
 import { getDataAPI, updateTestVal } from "./redux/actions/testActions";
+import DateRange from "./components/DateRange";
 
 const App = props => {
   const [movie, setMovie] = useState([]);
   // const [name, setName] = useState("")
   // const [search, setSearch] = useState([])
   const dispatch = useDispatch()
+  var text = "" ;
 
   // console.log(props.movieLisit)
-
- 
+  
+  // var text = (text ) ? "No data found" : "Loading" ; 
+  
   const clearState = () => {
     setMovie(props.movieLisit.data);
   };
@@ -26,9 +31,23 @@ const App = props => {
     console.log(search);
     setMovie(search);
 
+    //
+  // if ( e.target.value.length > 4  && Object.keys(search).length < 1){
+  //   props.text = "No data found"
+  // } else {
+  //   props.text = "Loading..."
+  // }
+//
+    if ( e.target.value.length > 4  && Object.keys(search).length < 1){
+       window.alert('No data')
+    }
+
     if (e.target.value.length< 3){
       clearState();
     } 
+    // if (e.target.value.toLowerCase() !== movie.title.toLowerCase()){
+    //   window.alert("data not found")
+    // }
 
     
 
@@ -47,6 +66,8 @@ const App = props => {
     } , 1000)
     // setMovie(Movie)
   } ;
+  
+
 
   
   
@@ -94,7 +115,13 @@ const App = props => {
             trailer_url={elem.trailer_url}
             overview={elem.overview}
           />
-        ) : <h1 style={{color:"white" , paddingBottom:"500px"}}>Loading.....</h1>}
+        ) :
+        
+        <Loader/>
+        // <h1 style={{color:"white" , paddingBottom:"500px"}}>Loading.. !</h1>
+        // <h1 style={{color:"white" , paddingBottom:"500px"}}>{props.text}</h1>
+
+      }
       </div>
 
     </>

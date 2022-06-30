@@ -8,28 +8,6 @@ export const updateTestVal = newVal => dispatch => {
   });
 };
 
-// export const fetchAsyncMovie =  () => dispatch =>{
- 
-//   dispatch({
-//     type:'LOADING',
-//     payload:true 
-//   })
-//   console.log("searching data")
-//   const data = axios.get('https://mcuapi.herokuapp.com/api/v1/movies')
-//   const {myData} = data ;
-//   const movie = myData.filter((u) => u.title === {name})
-//   console.log(movies)
-//   setMovies(movies)
-//   };
-  
-// export const searchMovie = text => dispatch => {
-//   dispatch({
-//     type:'SEARCH_MOVIE',
-//     payload : text
-//   })
-// }
-
-
 export const getDataAPI =()=> dispatch => {
     try {
       dispatch({
