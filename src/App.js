@@ -49,11 +49,13 @@ const App = props => {
    
     const filteredData = movie.filter(
       (row) => {
-    let datejs = new Date(
-      parseInt(row.release_date.substring(0,4), 10),
-      parseInt(row.release_date.substring(5,7), 10) -1 ,
-      parseInt(row.release_date.substring(8,10), 10)
-    );
+        if(!row.release_date) return false;
+      let datejs = new Date(
+        parseInt(row.release_date.substring(0,4), 10),
+        parseInt(row.release_date.substring(5,7), 10) -1 ,
+        parseInt(row.release_date.substring(8,10), 10)
+      );
+    
       console.log(datejs);
       console.log(finalFdate)
       console.log(finalLdate)
@@ -70,7 +72,8 @@ const App = props => {
       }
     );
     console.log(filteredData)
-    return filteredData
+    setMovie(filteredData)
+    // return filteredData
     
   }
 
@@ -162,7 +165,7 @@ const App = props => {
       <Navbar />
       <center >
       {/* Date range picker */}
-      <DateRangePicker initialSettings={{ startDate: '2002/02/05', endDate: '2009/01/30', locale:{format: 'YYYY/MM/DD'} }}  onApply={handleEvent} >
+      <DateRangePicker initialSettings={{ startDate: '2010/01/01', endDate: '2010/12/30', locale:{format: 'YYYY/MM/DD'} }}  onApply={handleEvent} >
         <input />
       </DateRangePicker>
       {/* <button onApply={handleEvent} className="srch">FIND</button> */}
