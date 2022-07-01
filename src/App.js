@@ -3,7 +3,14 @@ import { connect, useDispatch } from "react-redux";
 import Navbar from './components/Navbar'
 import Content from './components/Content'
 import Loader from "./components/Loader";
-import {DateRangePickerComponent} from '@syncfusion/ej2-react-calendars';
+import filterFactory, {
+  textFilter,
+  customFilter
+} from "react-bootstrap-table2-filter";
+import 'bootstrap/dist/css/bootstrap.css';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap-daterangepicker/daterangepicker.css';
+// import {DateRangePickerComponent} from '@syncfusion/ej2-react-calendars';
 import "bootstrap/dist/css/bootstrap.min.css"
 import './App.css'
 
@@ -12,19 +19,80 @@ import { getDataAPI, updateTestVal } from "./redux/actions/testActions";
 
 const App = props => {
   const [movie, setMovie] = useState([]);
-  // const [name, setName] = useState("")
-  // const [search, setSearch] = useState([])
+  const [value, setValue] = useState("");
+  const [filter , setFilter] = useState("")
   const dispatch = useDispatch()
 
-  // console.log(props.movieLisit)
-  const startValue = new Date (new Date().getFullYear(), new Date().getMonth(), 14);
-  const endValue = new Date (new Date().getFullYear(), new Date().getMonth() + 1 , 15);
-  // const minDate = new Date (new Date().getFullYear(), new Date().getMonth(), 8);
-  // const maxDate = new Date (new Date().getFullYear(), new Date().getMonth()+1, 20);
-
-
   
-  // var text = (text ) ? "No data found" : "Loading" ; 
+  function handleEvent(event, picker){
+    let fDate = picker.startDate._d ;
+    let finalFdate = fDate.toISOString().split('T')[0]
+    let lDate = picker.endDate._d;
+    let finalLdate = lDate.toISOString().split('T')[0]
+    let minMax = {
+      min : finalFdate,
+      max: finalLdate
+    }
+    console.log(minMax)
+    // console.log("start date:" + finalFdate,"last date:" + finalLdate);
+    
+    let min = new Date(
+      parseInt(minMax.min.substring(0, 4), 10),
+      parseInt(minMax.min.substring(5, 7), 10) - 1,
+      parseInt(minMax.min.substring(8, 10), 10)
+    );
+    let max = new Date(
+      parseInt(minMax.max.substring(0, 4), 10),
+      parseInt(minMax.max.substring(5, 7), 10) - 1,
+      parseInt(minMax.max.substring(8, 10), 10)
+    );
+   
+    const filteredData = movie.filter(
+      (row) => {
+    let datejs = new Date(
+      parseInt(row.release_date.substring(0,4), 10),
+      parseInt(row.release_date.substring(5,7), 10) -1 ,
+      parseInt(row.release_date.substring(8,10), 10)
+    );
+      console.log(datejs);
+      console.log(finalFdate)
+      console.log(finalLdate)
+
+      console.log(
+        ((min && datejs >= min) || !minMax.min) && 
+        ((max && datejs <= max ) || !minMax.max)
+      );
+  
+      return (
+        ((min && datejs >= min) || !minMax.min) &&
+        ((max && datejs <= max) || !minMax.max)
+      );
+      }
+    );
+    console.log(filteredData)
+    return filteredData
+    
+  }
+
+//  const filterDate = (filtervals , data) => {
+  
+//   console.log(filtervals);
+//   console.log(data);
+//   let min = new Date(
+//     parseInt(filtervals.min.substring(0,4),10),
+//     parseInt(filtervals.min.substring(5,7),10) -1 ,
+//     parseInt(filtervals.min.substring(8,10),10) 
+//   );
+//   let max = new Date(
+//     parseInt(filtervals.max.substring(0,4),10),
+//     parseInt(filtervals.max.substring(5,7),10),
+//     parseInt(filtervals.max.substring(8,10),10),
+  
+//   );
+  
+//   console.log(filteredData,"===");
+//  };
+
   
   const clearState = () => {
     setMovie(props.movieLisit.data);
@@ -50,35 +118,16 @@ const App = props => {
     if (e.target.value.length< 3){
       clearState();
     } 
-    // if (e.target.value.toLowerCase() !== movie.title.toLowerCase()){
-    //   window.alert("data not found")
-    // }
-
+    
     
 
   }
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log(name);
-    // const search = movie.title.includes(name)
-    // const search = movie.filter((u) => u.title === name)
-    // console.log(search)
-    // // setSearch(search)
-    // setMovie(search);
-    
     setTimeout(()=> {
       clearState();
     } , 1000)
-    // setMovie(Movie)
   } ;
-  
-
-
-  
-  
- 
-  
-
 
   useEffect(() => {
     console.log("=======")
@@ -90,21 +139,34 @@ const App = props => {
 
       setMovie(props.movieLisit.data)
       console.log(props.movieLisit.data)
+      
     }
     ;
-  }, [props.movieLisit.data])
+  }, [props.movieLisit.data]);
 
+  // function handleEvent(event, picker){
+  //   let fDate = picker.startDate._d ;
+  //   let finalFdate = fDate.toISOString().split('T')[0]
+  //   let lDate = picker.endDate._d;
+  //   let finalLdate = lDate.toISOString().split('T')[0]
+  //   console.log("start date:" + finalFdate,"last date:" + finalLdate);
+    
+  // }
+
+  // function handleCallback(start, end, label){
+  //   console.log(start, end, label);
+  // }
+ 
   return (
     <>
       <Navbar />
       <center >
-              <DateRangePickerComponent placeholder="Enter Date Range"
-              startDate={startValue}
-              endDate={endValue}
-              format="yyyy-mm-dd">
-              onSelect={(e)=>console.log(e,"====")}
-              </DateRangePickerComponent>
-
+      {/* Date range picker */}
+      <DateRangePicker initialSettings={{ startDate: '2002/02/05', endDate: '2009/01/30', locale:{format: 'YYYY/MM/DD'} }}  onApply={handleEvent} >
+        <input />
+      </DateRangePicker>
+      {/* <button onApply={handleEvent} className="srch">FIND</button> */}
+      {/*    */}
         <form onSubmit={submitHandler} >
         {/* <form  > */}
 
