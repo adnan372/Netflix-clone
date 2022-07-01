@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@syncfusion/ej2-react-calendars": "^20.2.36",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0-beta1",
     "connected-react-router": "6.6.1",

@@ -3,21 +3,26 @@ import { connect, useDispatch } from "react-redux";
 import Navbar from './components/Navbar'
 import Content from './components/Content'
 import Loader from "./components/Loader";
-import NoData from "./components/NoData";
+import {DateRangePickerComponent} from '@syncfusion/ej2-react-calendars';
 import "bootstrap/dist/css/bootstrap.min.css"
+import './App.css'
 
 
 import { getDataAPI, updateTestVal } from "./redux/actions/testActions";
-import DateRange from "./components/DateRange";
 
 const App = props => {
   const [movie, setMovie] = useState([]);
   // const [name, setName] = useState("")
   // const [search, setSearch] = useState([])
   const dispatch = useDispatch()
-  var text = "" ;
 
   // console.log(props.movieLisit)
+  const startValue = new Date (new Date().getFullYear(), new Date().getMonth(), 14);
+  const endValue = new Date (new Date().getFullYear(), new Date().getMonth() + 1 , 15);
+  // const minDate = new Date (new Date().getFullYear(), new Date().getMonth(), 8);
+  // const maxDate = new Date (new Date().getFullYear(), new Date().getMonth()+1, 20);
+
+
   
   // var text = (text ) ? "No data found" : "Loading" ; 
   
@@ -92,7 +97,14 @@ const App = props => {
   return (
     <>
       <Navbar />
-      <center>
+      <center >
+              <DateRangePickerComponent placeholder="Enter Date Range"
+              startDate={startValue}
+              endDate={endValue}
+              format="yyyy-mm-dd">
+              onSelect={(e)=>console.log(e,"====")}
+              </DateRangePickerComponent>
+
         <form onSubmit={submitHandler} >
         {/* <form  > */}
 

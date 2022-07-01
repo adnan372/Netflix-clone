@@ -2,6 +2,20 @@
   padding: 0;
   margin: 0;
   
+  
+  
+}
+body {
+  background-image:
+  linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1)),
+    url('https://assets.nflxext.com/ffe/siteui/vlv3/271ac55e-7228-438e-824e-92db37981e59/993003ba-1a9f-4b48-854f-4959e42116f3/IN-en-20220627-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+     /* width: 80%; */
+    /* height: 400px; */
+    background-size: cover;
+    color: white;
+    padding: 20px;
+    /* background-repeat: no-repeat; */
+    background-size: cover;
 }
 
 *::before,
@@ -20,13 +34,14 @@
   height: 100vh;
   
   
+  
 }.cardss {
     display: flex;
-    margin: 15px auto;
+    /* margin: 15px auto; */
     flex-wrap: wrap;
     transition: transform 0.2s;
     justify-content: center;
-    background-color: black;
+    /* background-color: black; */
     padding-bottom: 900px;
 }.srch {
   background-color: red;
@@ -36,6 +51,31 @@
 
   font-weight: 500;
 }center {
-  margin-top: -80px;
+  /* margin-top: 80px; */
+  /* margin-top: -80px; */
   z-index: 100;
+  /* background-color: black; */
+}.e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left), .e-input-group.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-float-input.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-float-input.e-control-wrapper.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap {
+  border-color: rgba(0,0,0,0.42);
+  max-width: 20%;
+  color: white;
+}.e-input-group .e-input-group-icon:not(:last-child), .e-input-group.e-control-wrapper .e-input-group-icon:not(:last-child) {
+  border-right-width: 0;
+  color: white;
+
+}.e-input-group-icon:not(:last-child):hover{
+  color: red;
+
+} .e-input-group > input {
+  color: red;
+}.e-input-group-icon:not(:last-child){
+  color: red;
+
+}.e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left), .e-input-group.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-float-input.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap, .e-float-input.e-control-wrapper.e-float-icon-left:not(.e-success):not(.e-warning):not(.e-error) .e-input-in-wrap {
+  border-color: rgba(0,0,0,0.42);
+  max-width: 20%;
+  color: white;
+  padding : 5px 15px;
+  border: 1px solid grey;
+  border-radius: 20px;
 }
