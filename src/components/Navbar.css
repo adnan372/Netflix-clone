@@ -43,3 +43,22 @@
 
     font-weight: 500;
 }
+.eng {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 5px 15px;
+}
+
+.sgn {
+    color: white;
+    background-color: red;
+    padding: 5px 15px;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+.btnx-arrow {
+    color: white;
+    font-size: 16px;
+}

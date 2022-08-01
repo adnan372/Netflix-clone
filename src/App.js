@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import Navbar from './components/Navbar'
 import Content from './components/Content'
-import Loader from "./components/Loader";
-import filterFactory, {
-  textFilter,
-  customFilter
-} from "react-bootstrap-table2-filter";
+import Skeleton ,{ SkeletonTheme } from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
-// import {DateRangePickerComponent} from '@syncfusion/ej2-react-calendars';
 import "bootstrap/dist/css/bootstrap.min.css"
 import './App.css'
-
-
 import { getDataAPI, updateTestVal } from "./redux/actions/testActions";
 
 const App = props => {
@@ -23,7 +17,6 @@ const App = props => {
   const [filter , setFilter] = useState("")
   const dispatch = useDispatch()
 
-  
   function handleEvent(event, picker){
     let fDate = picker.startDate._d ;
     let finalFdate = fDate.toISOString().split('T')[0]
@@ -73,30 +66,9 @@ const App = props => {
     );
     console.log(filteredData)
     setMovie(filteredData)
-    // return filteredData
-    
+    // return filteredData  
   }
 
-//  const filterDate = (filtervals , data) => {
-  
-//   console.log(filtervals);
-//   console.log(data);
-//   let min = new Date(
-//     parseInt(filtervals.min.substring(0,4),10),
-//     parseInt(filtervals.min.substring(5,7),10) -1 ,
-//     parseInt(filtervals.min.substring(8,10),10) 
-//   );
-//   let max = new Date(
-//     parseInt(filtervals.max.substring(0,4),10),
-//     parseInt(filtervals.max.substring(5,7),10),
-//     parseInt(filtervals.max.substring(8,10),10),
-  
-//   );
-  
-//   console.log(filteredData,"===");
-//  };
-
-  
   const clearState = () => {
     setMovie(props.movieLisit.data);
   };
@@ -107,13 +79,6 @@ const App = props => {
     console.log(search);
     setMovie(search);
 
-    //
-  // if ( e.target.value.length > 4  && Object.keys(search).length < 1){
-  //   props.text = "No data found"
-  // } else {
-  //   props.text = "Loading..."
-  // }
-//
     if ( e.target.value.length > 4  && Object.keys(search).length < 1){
        window.alert('No data')
     }
@@ -121,17 +86,15 @@ const App = props => {
     if (e.target.value.length< 3){
       clearState();
     } 
-    
-    
-
   }
+
   const submitHandler = (e) => {
     e.preventDefault();
     setTimeout(()=> {
       clearState();
     } , 1000)
   } ;
-
+  
   useEffect(() => {
     console.log("=======")
     dispatch(getDataAPI());
@@ -139,27 +102,12 @@ const App = props => {
 
   useEffect(() => {
     if (props.movieLisit.data) {
-
+      // setMovie(false)
       setMovie(props.movieLisit.data)
-      console.log(props.movieLisit.data)
-      
-    }
-    ;
+      console.log(props.movieLisit.data)     
+    };
   }, [props.movieLisit.data]);
 
-  // function handleEvent(event, picker){
-  //   let fDate = picker.startDate._d ;
-  //   let finalFdate = fDate.toISOString().split('T')[0]
-  //   let lDate = picker.endDate._d;
-  //   let finalLdate = lDate.toISOString().split('T')[0]
-  //   console.log("start date:" + finalFdate,"last date:" + finalLdate);
-    
-  // }
-
-  // function handleCallback(start, end, label){
-  //   console.log(start, end, label);
-  // }
- 
   return (
     <>
       <Navbar />
@@ -172,14 +120,10 @@ const App = props => {
       {/*    */}
         <form onSubmit={submitHandler} >
         {/* <form  > */}
-
           <input onChange={searchBox} type="text" placeholder='Search Movie here' className='p-2 px-5 mt-3  inpux' />
-
-
           {/* <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Search Movies here" className='p-2 mt-3' /> */}
           <button className='srch  rounded-end ' >SEARCH</button>
         </form>
-
       </center>
       {/* {console.log(props.movieLisit,"=====")} */}
       <div className="cardss">
@@ -193,16 +137,109 @@ const App = props => {
             overview={elem.overview}
           />
         ) :
-        
-        <Loader/>
-        // <h1 style={{color:"white" , paddingBottom:"500px"}}>Loading.. !</h1>
-        // <h1 style={{color:"white" , paddingBottom:"500px"}}>{props.text}</h1>
-
+        <div className="cardss">
+                      <SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded border rounded m-4 " >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme> 
+                      <SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme><SkeletonTheme
+                        baseColor="#0d0d0d"
+                        highlightColor="#4d4d4d"
+                        duration={0.9}
+                        >
+                        <div className="border rounded m-4" >
+                            <Skeleton  height={600} width={"20rem"}/>
+                        </div>
+                      </SkeletonTheme>
+                </div>
       }
       </div>
-
     </>
-
   );
 };
 
